@@ -25,12 +25,12 @@ flex-grow: 1
 ` 
 
 function App() {
-      return (
+  return (
   <DivContainer>
     <ContainerLista/>
     <FormularioMensagem/>
   </DivContainer>
-);
+ );
 }
 
 
