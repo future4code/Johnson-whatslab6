@@ -29,6 +29,12 @@ export default class FormularioMensagem extends React.Component {
         this.setState({valorInputMensagem: "", valorInputUsuario:"" })
     }
 
+    enviaComEnter = (event) => {
+        if(event.key==="Enter"){
+            this.enviarMensagem();
+        }
+    }
+
    
 
     //Styled
@@ -75,6 +81,7 @@ export default class FormularioMensagem extends React.Component {
                     value={this.state.valorInputMensagem}
                     onChange={this.onChangeInputMensagem}
                     placeholder="Mensagem"
+                    onKeyPress={this.enviaComEnter}
                     />
                     <this.BotaoEnviar onClick={this.enviarMensagem}>Enviar</this.BotaoEnviar>
                 </this.InputContainer>
