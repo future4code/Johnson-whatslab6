@@ -2,7 +2,6 @@ import React from 'react';
 import ListaMensagens from './ListaMensagens';
 import styled from 'styled-components';
 
-
 export default class FormularioMensagem extends React.Component {
 
     state = {
@@ -19,10 +18,6 @@ export default class FormularioMensagem extends React.Component {
         this.setState({valorInputMensagem: event.target.value})
     }
 
-    onChangeInputMensagem = (event ) =>{
-        this.setState({valorInputMensagem:event.taget.value})
-    }
-
     enviarMensagem = () => {
         const mensagem = {
             usuario: this.state.valorInputUsuario,
@@ -31,12 +26,12 @@ export default class FormularioMensagem extends React.Component {
 
         const novoArrayMensagens = [...this.state.mensagens, mensagem]
         this.setState({mensagens: novoArrayMensagens})
-        this.setState({valorInputMensagem: ""})
+        this.setState({valorInputMensagem: "", valorInputUsuario:"" })
     }
 
- 
+   
 
-    //Estilizacao
+    //Styled
     InputContainer = styled.div`
         height: 35px;
         display: flex;
@@ -47,6 +42,7 @@ export default class FormularioMensagem extends React.Component {
     `
 
     InputMensagem = styled.input`
+    
         flex-grow: 1
     `
 
@@ -69,7 +65,7 @@ export default class FormularioMensagem extends React.Component {
             <div>
                 {listaDeMensagens}
 
-                <this.InputContainer>                
+                <this.InputContainer>
                     <this.InputUsuario
                     value={this.state.valorInputUsuario}
                     onChange={this.onChangeInputUsuario}
