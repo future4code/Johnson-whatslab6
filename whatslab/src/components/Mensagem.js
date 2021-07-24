@@ -1,91 +1,97 @@
 import React from 'react';
-import ListaMensagens from './ListaMensagens';
-import styled from 'styled-components';
+import './Mensagem.css'
 
-export default class FormularioMensagem extends React.Component {
-
-    state = {
+class Mensageiro extends React.Component {
+    state={
         mensagens: [],
-        valorInputUsuario: "",
-        valorInputMensagem: ""
+        valorUsuario: '',
+        valorMensagem: ''
     }
 
-    onChangeInputUsuario = (event) => {
-        this.setState({valorInputUsuario: event.target.value})
+    atualizaMensagens = () => {
+        const listaDeMensagens = this.state.mensagens.map((mensagem, index) =>{
+            if(mensagem.usuario==="eu"){
+                return <div key={index} numero={index} onDoubleClick={this.deletar} className="mensagem-div-eu"><span className="mensagem-eu"><p>{mensagem.texto}</p></span></div>
+            }
+          return <div key={index} numero={index} onDoubleClick={this.deletar} className="mensagem-div-outros"><span className="mensagem-outros"><h4>{mensagem.usuario}</h4><p>{mensagem.texto}</p></span></div>
+        })
+        return listaDeMensagens
     }
 
-    onChangeInputMensagem = (event) => {
-        this.setState({valorInputMensagem: event.target.value})
-    }
-
-    enviarMensagem = () => {
-        const mensagem = {
-            usuario: this.state.valorInputUsuario,
-            texto: this.state.valorInputMensagem
+    deletar = (event) =>{
+        if(window.confirm("Quer deletar essa mensagem?")){
+            const indice=event.currentTarget.getAttribute('numero')
+            const listaDeMensagens = this.state.mensagens;
+            listaDeMensagens.splice(indice, 1);
+            this.setState({
+                mensagens: listaDeMensagens
+            })
         }
+    }
 
-        const novoArrayMensagens = [...this.state.mensagens, mensagem]
-        this.setState({mensagens: novoArrayMensagens})
-        this.setState({valorInputMensagem: "", valorInputUsuario:"" })
+    onChangeUsuario = (event) => {
+		this.setState({
+			valorUsuario: event.target.value
+		})
+	}
+
+    onChangeMensagem = (event) => {
+		this.setState({
+			valorMensagem: event.target.value
+		})
+	}
+
+    enviar = () => {
+        if(this.state.valorUsuario === "" || this.state.valorMensagem === ""){
+            if(this.state.valorUsuario === ""){
+                return window.alert("Digite o usuario")
+            }
+            return window.alert("Digite a mensagem")
+        }
+        const listaDeMensagens = this.state.mensagens;
+        const mensagem = {
+            usuario: this.state.valorUsuario,
+            texto: this.state.valorMensagem
+        }
+        listaDeMensagens.push(mensagem)
+        this.setState({
+            mensagens: listaDeMensagens, 
+            valorMensagem: ''
+        })
     }
 
     enviaComEnter = (event) => {
         if(event.key==="Enter"){
-            this.enviarMensagem();
+            this.enviar();
         }
     }
 
-   
-
-    //Styled
-    InputContainer = styled.div`
-        height: 35px;
-        display: flex;
-    `
-
-    InputUsuario = styled.input`
-        width: 100px;
-    `
-
-    InputMensagem = styled.input`
-    
-        flex-grow: 1
-    `
-
-    BotaoEnviar = styled.button`
-        background-color: #444;
-        color: #FFF; 
-    `
-
     render(){
-
-        const listaDeMensagens = this.state.mensagens.map((mensagem, id)=> {
-            return <ListaMensagens 
-            key={id} 
-            usuario={mensagem.usuario} 
-            mensagem={mensagem.texto}
-            />
-        })
-
-        return(
-            <div>
-                {listaDeMensagens}
-
-                <this.InputContainer>
-                    <this.InputUsuario
-                    value={this.state.valorInputUsuario}
-                    onChange={this.onChangeInputUsuario}
-                    placeholder="Usuário"
+        const listaAtualizada = this.atualizaMensagens();
+        return (
+            <div className="container">
+                <div className="container-mensagens">
+                    {listaAtualizada}
+                </div>
+                <div className="grid-input">
+                    <input
+                        className={'input-usuario'}
+                        placeholder={'Usuário'}
+                        value={this.state.valorUsuario}
+                        onChange={this.onChangeUsuario}
                     />
-                    <this.InputMensagem
-                    value={this.state.valorInputMensagem}
-                    onChange={this.onChangeInputMensagem}
-                    placeholder="Mensagem"
-                    onKeyPress={this.enviaComEnter}
+                    <input
+                        className={'input-mensagem'}
+                        placeholder={'Mensagem'}
+                        value={this.state.valorMensagem}
+                        onChange={this.onChangeMensagem}
+                        onKeyDown={this.enviaComEnter}
                     />
-                    <this.BotaoEnviar onClick={this.enviarMensagem}>Enviar</this.BotaoEnviar>
-                </this.InputContainer>
+                    <div className="button" onClick ={this.enviar}>ENVIAR</div>
+                </div>
             </div>
         )
     }
 }
+
+export default Mensageiro;
