@@ -2,7 +2,7 @@ import React from 'react';
 import ListaMensagens from './ListaMensagens';
 import styled from 'styled-components';
 
-export default class FormularioMensagem extends React.Component {
+export default class Mensagem extends React.Component {
 
     state = {
         mensagens: [],
