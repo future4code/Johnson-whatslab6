@@ -56,7 +56,7 @@ class Mensageiro extends React.Component {
         listaDeMensagens.push(mensagem)
         this.setState({
             mensagens: listaDeMensagens, 
-            valorMensagem: ''
+            valorMensagem: '', valorUsuario:''
         })
     }
 
@@ -76,13 +76,13 @@ class Mensageiro extends React.Component {
                 <div className="grid-input">
                     <input
                         className={'input-usuario'}
-                        placeholder={'Usuário'}
+                        placeholder={'Usuário:'}
                         value={this.state.valorUsuario}
                         onChange={this.onChangeUsuario}
                     />
                     <input
                         className={'input-mensagem'}
-                        placeholder={'Mensagem'}
+                        placeholder={'Mensagem:'}
                         value={this.state.valorMensagem}
                         onChange={this.onChangeMensagem}
                         onKeyDown={this.enviaComEnter}
