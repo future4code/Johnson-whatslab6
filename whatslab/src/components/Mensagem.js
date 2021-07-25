@@ -4,8 +4,8 @@ import './Mensagem.css'
 class Mensageiro extends React.Component {
     state={
         mensagens: [],
-        valorUsuario: '',
-        valorMensagem: ''
+        valorUsuario: "",
+        valorMensagem: ""
     }
 
     atualizaMensagens = () => {
@@ -56,11 +56,11 @@ class Mensageiro extends React.Component {
         listaDeMensagens.push(mensagem)
         this.setState({
             mensagens: listaDeMensagens, 
-            valorMensagem: '', valorUsuario:''
+            valorMensagem: "", valorUsuario:""
         })
     }
 
-    enviaComEnter = (event) => {
+    enviappEnter = (event) => {
         if(event.key==="Enter"){
             this.enviar();
         }
@@ -85,7 +85,7 @@ class Mensageiro extends React.Component {
                         placeholder={'Mensagem:'}
                         value={this.state.valorMensagem}
                         onChange={this.onChangeMensagem}
-                        onKeyDown={this.enviaComEnter}
+                        onKeyPress={this.enviaComEnter}
                     />
                     <div className="button" onClick ={this.enviar}>ENVIAR</div>
                 </div>
